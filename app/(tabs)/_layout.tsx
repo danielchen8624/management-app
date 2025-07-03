@@ -1,7 +1,5 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { images } from "@/constants/images";
-import {ImageBackground} from "react-native";
 
 const _Layout = () => {
   return (
@@ -9,15 +7,7 @@ const _Layout = () => {
       <Tabs.Screen //for each screen inside (tabs) create a tab for it on the bottom
         name="index"
         options={{
-          title: "Home",
-          headerShown: false,
-        }}
-      />
-
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: "Search",
+          title: "index",
           headerShown: false,
         }}
       />
@@ -31,7 +21,7 @@ const _Layout = () => {
       />
 
        <Tabs.Screen
-        name="saved"
+        name="home"
         options={{
           title: "Saved",
           headerShown: false,

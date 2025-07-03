@@ -1,6 +1,3 @@
-/* STUDY THIS PAGE AND HOW IT ALL CONNECTS WHATS GOING ON
-
-
 import React, { useState } from "react";
 import { View, TextInput, Button, Text, Alert, StyleSheet } from "react-native";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
@@ -35,7 +32,7 @@ export default function LoginScreen() {
       <TextInput
         placeholder="Email"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={(text) => setEmail(text)}
         autoCapitalize="none"
         keyboardType="email-address"
         style={styles.input}
@@ -44,7 +41,7 @@ export default function LoginScreen() {
       <TextInput
         placeholder="Password"
         value={password}
-        onChangeText={setPassword}
+        onChangeText={(text) => setPassword(text)}
         secureTextEntry
         style={styles.input}
       />

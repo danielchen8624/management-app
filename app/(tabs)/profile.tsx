@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const Profile = () => {
+const ProfileScreen = () => {
   return (
     <View
       style={{
@@ -23,4 +23,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileScreen;
