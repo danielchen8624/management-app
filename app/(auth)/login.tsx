@@ -27,8 +27,10 @@ export default function LoginScreen() {
     }
   };
  //KeyboardAvoidingView moves components up away from keyboard if it is overlapped
+
   return (
     <View style={styles.container}>
+      
 
       <Text style={styles.title}>Firebase Login</Text>
 
