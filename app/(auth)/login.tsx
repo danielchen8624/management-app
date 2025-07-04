@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Text, Alert, StyleSheet } from "react-native";
+import { View, TextInput, Button, Text, Alert, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../../firebaseConfig"
 
@@ -24,9 +24,10 @@ export default function LoginScreen() {
       Alert.alert("Error", error.message);
     }
   };
-
+ //KeyboardAvoidingView moves components up away from keyboard if it is overlapped
   return (
     <View style={styles.container}>
+
       <Text style={styles.title}>Firebase Login</Text>
 
       <TextInput
@@ -48,7 +49,9 @@ export default function LoginScreen() {
 
       <Button title="Sign Up" onPress={handleSignUp} />
       <Button title="Login" onPress={handleLogin} />
+      
     </View>
+    
   );
 }
 

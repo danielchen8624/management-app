@@ -3,21 +3,25 @@ import { Text, View } from "react-native";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { router } from "expo-router";
+import HomeScreen from "./(tabs)/home";
+import LoginScreen from "./(auth)/login";
+import {User} from "firebase/auth";
+
 
 export default function Home() {
+  const [user, setUser] = useState<User |null> (null);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => { //what is the unsub here for
-      if (!user) {
-        router.replace("/login");
-      }
+      console.log ("user: ", user);
+      setUser(user);
     });
     return unsub;
   }, []);
 
   return (
-    <View>
-      <Text>Welcome Home</Text>
+    <View style = {{flex: 1}}>
+       {user? <HomeScreen/> : <LoginScreen/>}
     </View>
   );
 }
