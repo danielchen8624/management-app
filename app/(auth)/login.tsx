@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, TextInput, Button, Text, Alert, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../../firebaseConfig"
-
+import { router } from "expo-router";
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +11,7 @@ export default function LoginScreen() {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert("Success!", "User registered.");
+      router.replace("/home");
     } catch (error: any) {
       Alert.alert("Error", error.message);
     }
@@ -20,6 +21,7 @@ export default function LoginScreen() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       Alert.alert("Success!", "Logged in.");
+      router.replace("/home");
     } catch (error: any) {
       Alert.alert("Error", error.message);
     }
