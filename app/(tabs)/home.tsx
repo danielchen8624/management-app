@@ -16,6 +16,7 @@ export default function HomeScreen() {
   const handleSelection = (option: string) => {
     setSelected(option);
     setShowTextBox(true);
+    setDropDownVisible(false);
     console.log(option); //remove later
   };
   const handleCardPress = () => {
@@ -41,6 +42,11 @@ export default function HomeScreen() {
         ) : (
           <Text>Select an Option</Text>
         )}
+
+        {showTextBox && (
+          <Text>Hi</Text>
+        )
+      }
       </TouchableOpacity>
     </View>
   );
