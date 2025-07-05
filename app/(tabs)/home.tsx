@@ -1,22 +1,31 @@
-import { Text, View, StyleSheet, TouchableOpacity, Alert, TextInput } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  TextInput,
+} from "react-native";
 import React, { useState } from "react";
 
 export default function HomeScreen() {
   const [dropDownVisible, setDropDownVisible] = useState(false);
   const options = ["light", "door", "jelq"];
   const [selected, setSelected] = useState("");
-  const [showTextBox,setShowTextBox] = useState(false);
+  const [showTextBox, setShowTextBox] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [showSelectOption, setShowSelectOption] = useState(true);
 
   const handleSubmit = () => {
     //send to database
-    Alert.alert("Success", "submitted!")
-    console.log(selected,":", inputValue);
+    Alert.alert("Success", "submitted!");
+    console.log(selected, ":", inputValue);
     setSelected("");
     setDropDownVisible(false);
     setShowTextBox(false);
     setInputValue("");
-  }
+    setShowSelectOption(true);
+  };
   const handleSelection = (option: string) => {
     setSelected(option);
     setShowTextBox(true);
@@ -24,43 +33,43 @@ export default function HomeScreen() {
   };
   const handleCardPress = () => {
     setDropDownVisible(!dropDownVisible);
+    setShowSelectOption(false);
   };
 
   return (
     <View style={styles.container}>
-
-      <TouchableOpacity onPress={handleCardPress} style={styles.card}>
-        {dropDownVisible ? (
-          options.map((option) => {
-            return (
-              <TouchableOpacity
-                onPress={() => handleSelection(option)}
-                key={option}
-                style={styles.card}
-              >
-                <Text>{option}</Text>
-              </TouchableOpacity>
-            );
-          })
-        ) : (
+      {showSelectOption && (
+        <TouchableOpacity onPress={handleCardPress} style={styles.card}>
           <Text>Select an Option</Text>
-        )}
+        </TouchableOpacity>
+      )}
 
-        {showTextBox && (
-          <>
+      {dropDownVisible &&
+        options.map((option) => {
+          return (
+            <TouchableOpacity
+              onPress={() => handleSelection(option)}
+              key={option}
+              style={styles.card}
+            >
+              <Text>{option}</Text>
+            </TouchableOpacity>
+          );
+        })}
+
+      {showTextBox && (
+        <>
           <TextInput
-            style = {styles.card}
-            placeholder = {"description"}
-            value = {inputValue}
-            onChangeText = {setInputValue}
+            style={styles.card}
+            placeholder={"description"}
+            value={inputValue}
+            onChangeText={setInputValue}
           />
-          <TouchableOpacity style = {styles.card} onPress = {handleSubmit}>
+          <TouchableOpacity style={styles.card} onPress={handleSubmit}>
             <Text>Submit</Text>
           </TouchableOpacity>
-         </> 
-) //right now nothing sets showtextbox to false, so the hi is there forever. the hi will be replaced with a textInput and submitting the form will close it.
-      }
-      </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 }

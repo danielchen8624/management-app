@@ -23,7 +23,7 @@ const ProfileScreen = () => {
       <Text style={styles.header}>Profile</Text>
     </View>
     <TouchableOpacity onPress = {handleLogout} style = {styles.logOutButton}>
-      <Text style = {styles.logOutText}></Text>
+      <Text style = {styles.logOutText}>Sign Out</Text>
     </TouchableOpacity>
     </>
   );

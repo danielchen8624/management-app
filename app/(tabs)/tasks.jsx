@@ -1,8 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {router} from "expo-router";
 function TaskPage() {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style = {styles.taskButton}>
+      <TouchableOpacity style = {styles.taskButton} onPress = {() => {
+        router.push("/todo");
+      }}>
         <Text>Hai Task Page</Text>
       </TouchableOpacity>
     </View>
