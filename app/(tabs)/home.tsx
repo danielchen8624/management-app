@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Alert, TextInput } from "react-native";
 import React, { useState } from "react";
 
 export default function HomeScreen() {
@@ -6,18 +6,21 @@ export default function HomeScreen() {
   const options = ["light", "door", "jelq"];
   const [selected, setSelected] = useState("");
   const [showTextBox,setShowTextBox] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
-  const handleSumbit = () => {
+  const handleSubmit = () => {
     //send to database
     Alert.alert("Success", "submitted!")
+    console.log(selected,":", inputValue);
     setSelected("");
     setDropDownVisible(false);
+    setShowTextBox(false);
+    setInputValue("");
   }
   const handleSelection = (option: string) => {
     setSelected(option);
     setShowTextBox(true);
     setDropDownVisible(false);
-    console.log(option); //remove later
   };
   const handleCardPress = () => {
     setDropDownVisible(!dropDownVisible);
@@ -44,8 +47,18 @@ export default function HomeScreen() {
         )}
 
         {showTextBox && (
-          <Text>Hi</Text>
-        )
+          <>
+          <TextInput
+            style = {styles.card}
+            placeholder = {"description"}
+            value = {inputValue}
+            onChangeText = {setInputValue}
+          />
+          <TouchableOpacity style = {styles.card} onPress = {handleSubmit}>
+            <Text>Submit</Text>
+          </TouchableOpacity>
+         </> 
+) //right now nothing sets showtextbox to false, so the hi is there forever. the hi will be replaced with a textInput and submitting the form will close it.
       }
       </TouchableOpacity>
     </View>
