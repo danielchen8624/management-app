@@ -1,20 +1,47 @@
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { Link, router} from "expo-router";
-import React from "react";
+import { Text, View, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import React, { useState } from "react";
 
 export default function HomeScreen() {
+  const [dropDownVisible, setDropDownVisible] = useState(false);
+  const options = ["light", "door", "jelq"];
+  const [selected, setSelected] = useState("");
+  const [showTextBox,setShowTextBox] = useState(false);
 
+  const handleSumbit = () => {
+    //send to database
+    Alert.alert("Success", "submitted!")
+    setSelected("");
+    setDropDownVisible(false);
+  }
+  const handleSelection = (option: string) => {
+    setSelected(option);
+    setShowTextBox(true);
+    console.log(option); //remove later
+  };
   const handleCardPress = () => {
-    router.push("../(components)/todo");
+    setDropDownVisible(!dropDownVisible);
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress = {handleCardPress} style = {styles.card}>
-        <Text style = {styles.cardTitle}>To-Do</Text>
-        <Text style = {styles.cardTitle}>Tap to open your tasks</Text>
+
+      <TouchableOpacity onPress={handleCardPress} style={styles.card}>
+        {dropDownVisible ? (
+          options.map((option) => {
+            return (
+              <TouchableOpacity
+                onPress={() => handleSelection(option)}
+                key={option}
+                style={styles.card}
+              >
+                <Text>{option}</Text>
+              </TouchableOpacity>
+            );
+          })
+        ) : (
+          <Text>Select an Option</Text>
+        )}
       </TouchableOpacity>
-      
     </View>
   );
 }
