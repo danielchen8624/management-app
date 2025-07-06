@@ -1,13 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import {router} from "expo-router";
+import {db, auth} from "../../firebaseConfig";
+import {collection, query, where, onSnapshot} from "firebase/firestore";
+import React, {useState, useEffect} from "react";
 function TaskPage() {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style = {styles.taskButton} onPress = {() => {
-        router.push("/todo");
-      }}>
-        <Text>Hai Task Page</Text>
-      </TouchableOpacity>
+      
     </View>
   );
 }

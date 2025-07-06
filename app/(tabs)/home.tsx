@@ -7,6 +7,8 @@ import {
   TextInput,
 } from "react-native";
 import React, { useState } from "react";
+import {db, auth} from "../../firebaseConfig"; 
+import {collection, addDoc, Timestamp} from "firebase/firestore";
 
 export default function HomeScreen() {
   const [dropDownVisible, setDropDownVisible] = useState(false);
@@ -16,10 +18,28 @@ export default function HomeScreen() {
   const [inputValue, setInputValue] = useState("");
   const [showSelectOption, setShowSelectOption] = useState(true);
 
-  const handleSubmit = () => {
-    //send to database
-    Alert.alert("Success", "submitted!");
-    console.log(selected, ":", inputValue);
+  const handleSubmit = async() => {
+    try {
+      await (addDoc(collection(db, "requests"), {
+        //"type": selected,
+        //"description": inputValue,
+        //"createdBy": auth.currentUser?.uid,
+        //"createdAt": Timestamp.now(),
+      }));
+      
+      Alert.alert("Success", "submitted!");
+
+    }
+    catch (error){
+      console.error(error);
+      Alert.alert("Error", "please try again.")
+    }
+
+    
+    console.log(selected, ":", inputValue, ":", Timestamp.now());
+    console.log(auth.currentUser?.uid);
+    
+    //reset to defaults
     setSelected("");
     setDropDownVisible(false);
     setShowTextBox(false);

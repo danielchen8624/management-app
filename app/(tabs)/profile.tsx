@@ -5,26 +5,22 @@ import { auth } from "@/firebaseConfig";
 import { router } from "expo-router";
 
 const ProfileScreen = () => {
-
-  const handleLogout = async() => {
-    try{
+  const handleLogout = async () => {
+    try {
       await signOut(auth);
       Alert.alert("Success!", "Logged Out.");
-      
-    }
-    catch(error){
+    } catch (error) {
       Alert.alert("Error", "Please Try Again.");
     }
-
-  }
+  };
   return (
     <>
-    <View style={styles.container}>
-      <Text style={styles.header}>Profile</Text>
-    </View>
-    <TouchableOpacity onPress = {handleLogout} style = {styles.logOutButton}>
-      <Text style = {styles.logOutText}>Sign Out</Text>
-    </TouchableOpacity>
+      <View style={styles.container}>
+        <Text style={styles.header}>Profile</Text>
+      </View>
+      <TouchableOpacity onPress={handleLogout} style={styles.logOutButton}>
+        <Text style={styles.logOutText}>Sign Out</Text>
+      </TouchableOpacity>
     </>
   );
 };
@@ -56,6 +52,5 @@ const styles = StyleSheet.create({
   },
   logOutText: {
     fontSize: 20,
-  }
-
+  },
 });

@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 import {useState, useEffect} from "react";
-import "./globals.css";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { router } from "expo-router";
