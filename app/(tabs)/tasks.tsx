@@ -12,16 +12,16 @@ import React, { useState, useEffect } from "react";
 
 function TaskPage() {
   const [currentTasks, setCurrentTasks] = useState<any[]>([]);
-  
+
   type Task = {
-  id: string;
-  type: string;
-  description: string;
-  createdBy: string;
-  createdAt?: {
-    toDate: () => Date;
+    id: string;
+    type: string;
+    description: string;
+    createdBy: string;
+    createdAt?: {
+      toDate: () => Date;
+    };
   };
-};
 
   useEffect(() => {
     const q = query(
@@ -38,30 +38,44 @@ function TaskPage() {
     return unsub;
   }, []);
 
-  const openScreen = (task:Task) => {
+  const openScreen = (task: Task) => {
     router.push({
       pathname: "/todo",
       params: {
         taskId: task.id,
       },
-    }); 
+    });
+  };
+
+  const openHistory = () => {
+    router.push({
+      pathname: "/taskHistory",
+    });
   };
 
   return (
-    <ScrollView>
-      {currentTasks.map((task) => (
-        <TouchableOpacity
-          onPress={() => openScreen(task)}
-          key={task.id}
-          style={styles.taskCard}
-        >
-          <Text>{task.type}</Text>
-          <Text>{task.description}</Text>
-          <Text>User: {task.createdBy}</Text>
-          <Text>Date: {task.createdAt?.toDate().toLocaleString()}</Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+    <>
+      <TouchableOpacity
+        onPress={() => openHistory()}
+        style={styles.historyButton}
+      >
+        <Text>Task History</Text>
+      </TouchableOpacity>
+      <ScrollView>
+        {currentTasks.map((task) => (
+          <TouchableOpacity
+            onPress={() => openScreen(task)}
+            key={task.id}
+            style={styles.taskCard}
+          >
+            <Text>{task.type}</Text>
+            <Text>{task.description}</Text>
+            <Text>User: {task.createdBy}</Text>
+            <Text>Date: {task.createdAt?.toDate().toLocaleString()}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </>
   );
 }
 
@@ -82,5 +96,24 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 8,
     alignItems: "center",
+  },
+  historyButton: {
+    backgroundColor: "#007AFF", // nice blue
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    alignSelf: "center",
+    marginVertical: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+
+  historyButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });

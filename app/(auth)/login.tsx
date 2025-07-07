@@ -32,7 +32,7 @@ export default function LoginScreen() {
     <View style={styles.container}>
       
 
-      <Text style={styles.title}>Firebase Login</Text>
+      <Text style={styles.title}>Login</Text>
 
       <TextInput
         placeholder="Email"

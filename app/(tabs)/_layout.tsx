@@ -15,7 +15,7 @@ const _Layout = () => {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: "profile",
           headerShown: false, // the focused in tabbaricon is the state of the icon. the states are whether it has been clicked or not.
         }}
       />

@@ -4,5 +4,10 @@ export default function RootLayout() {
     <Stack.Screen 
     name = "todo"
     options = {{headerShown: false}} />
+
+    <Stack.Screen 
+    name = "editProfile"
+    options = {{headerShown: false}} />
     </Stack>;
+
 }
