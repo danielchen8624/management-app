@@ -21,10 +21,11 @@ export default function HomeScreen() {
   const handleSubmit = async() => {
     try {
       await (addDoc(collection(db, "requests"), {
-        //"type": selected,
-        //"description": inputValue,
-        //"createdBy": auth.currentUser?.uid,
-        //"createdAt": Timestamp.now(),
+        "type": selected,
+        "description": inputValue,
+        "createdBy": auth.currentUser?.uid,
+        "createdAt": Timestamp.now(),
+        "status": "pending"
       }));
       
       Alert.alert("Success", "submitted!");
