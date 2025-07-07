@@ -4,7 +4,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
 import { router } from "expo-router";
 
-const ProfileScreen = () => {
+function ProfileScreen() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -13,9 +13,19 @@ const ProfileScreen = () => {
       Alert.alert("Error", "Please Try Again.");
     }
   };
+
+  const editProfile = () => {
+    if (auth.currentUser != null) {
+      router.push("/editProfile");
+    }
+  };
+
   return (
     <>
       <View style={styles.container}>
+        <TouchableOpacity style={styles.logOutButton} onPress={editProfile}>
+          <Text style={styles.logOutText}>Edit Profile</Text>
+        </TouchableOpacity>
         <Text style={styles.header}>Profile</Text>
       </View>
       <TouchableOpacity onPress={handleLogout} style={styles.logOutButton}>
@@ -23,7 +33,7 @@ const ProfileScreen = () => {
       </TouchableOpacity>
     </>
   );
-};
+}
 
 export default ProfileScreen;
 

@@ -5,6 +5,7 @@ import {doc, updateDoc} from "firebase/firestore";
 
 function ToDoScreen() {
   const {taskId} = useLocalSearchParams();
+
   const handleAccept = async() => {
     if (!taskId){
       console.error("no user found!")
@@ -17,7 +18,7 @@ function ToDoScreen() {
         status: "in progress",
       });
       console.log("updated task to in progress!");
-      router.replace("/tasks")
+      router.back();
     }
     catch(error){
       console.error(error);
@@ -29,7 +30,7 @@ function ToDoScreen() {
       <TouchableOpacity onPress = {()=> handleAccept(taskId)} style = {styles.acceptButton}>
         <Text>Yes</Text>
       </TouchableOpacity>
-      <TouchableOpacity style = {styles.declineButton}>
+      <TouchableOpacity onPress = {() => {router.back();}} style = {styles.declineButton}>
         <Text>No</Text>
       </TouchableOpacity>
     </View>
