@@ -1,36 +1,73 @@
-import { StyleSheet, View, Text } from "react-native";
-function ToDo() {
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {db} from "../../firebaseConfig"
+import {router, useLocalSearchParams} from "expo-router";
+import {doc, updateDoc} from "firebase/firestore";
+
+function ToDoScreen() {
+  const {taskId} = useLocalSearchParams();
+  const handleAccept = async() => {
+    if (!taskId){
+      console.error("no user found!")
+      return null;
+    }
+    
+    try {
+      const taskRef = doc(db, "requests", taskId);
+      await updateDoc(taskRef, {
+        status: "in progress",
+      });
+      console.log("updated task to in progress!");
+      router.replace("/tasks")
+    }
+    catch(error){
+      console.error(error);
+    }
+  };
+
   return (
-    <View style={[styles.container, styles.greenBg]}>
-      <View style={[styles.box, styles.blueBg]}>
-        <Text>Hi My name is joe</Text>
-      </View>
-      <View style={[styles.box, styles.blueBg]}>
-        <Text>Hi My name is fat</Text>
-      </View>
+    <View style = {styles.container}>
+      <TouchableOpacity onPress = {()=> handleAccept(taskId)} style = {styles.acceptButton}>
+        <Text>Yes</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style = {styles.declineButton}>
+        <Text>No</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-export default ToDo;
+export default ToDoScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
-    height: 1,
-    width: 400,
-    gap: 20, //adds space between children top down
+    justifyContent: "flex-end", // push children to bottom
+    padding: 20,
+    backgroundColor: "#fff",
   },
-  greenBg: {
-    backgroundColor: "green",
+  text: {
+    fontSize: 18,
+    textAlign: "center",
+    marginBottom: 20,
   },
-  blueBg: {
-    backgroundColor: "blue",
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between", // left & right
   },
-  box: {
-    width: "95%",
-    height: "20%",
-    justifyContent: "center",
-    alignItems: "center",
+  declineButton: {
+    backgroundColor: "#f44336", // red
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+  },
+  acceptButton: {
+    backgroundColor: "#4CAF50", // green
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

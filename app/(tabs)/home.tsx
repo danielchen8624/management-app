@@ -60,9 +60,12 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       {showSelectOption && (
+        <>
+        <Text style = {styles.cardTitle}>Submit a Request</Text>
         <TouchableOpacity onPress={handleCardPress} style={styles.card}>
           <Text>Select an Option</Text>
         </TouchableOpacity>
+        </>
       )}
 
       {dropDownVisible &&
@@ -116,7 +119,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 8,
+    marginBottom: 20,
   },
   cardDescription: {
     fontSize: 14,

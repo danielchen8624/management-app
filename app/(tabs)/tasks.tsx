@@ -1,9 +1,27 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { router } from "expo-router";
 import { db, auth } from "../../firebaseConfig";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
+
 function TaskPage() {
   const [currentTasks, setCurrentTasks] = useState<any[]>([]);
+  
+  type Task = {
+  id: string;
+  type: string;
+  description: string;
+  createdBy: string;
+  createdAt?: {
+    toDate: () => Date;
+  };
+};
 
   useEffect(() => {
     const q = query(
@@ -20,21 +38,33 @@ function TaskPage() {
     return unsub;
   }, []);
 
+  const openScreen = (task:Task) => {
+    router.push({
+      pathname: "/todo",
+      params: {
+        taskId: task.id,
+      },
+    }); 
+  };
 
   return (
-  <>
-    {currentTasks.map((task) => (
-      <TouchableOpacity key={task.id} style={styles.taskCard}>
-        <Text>{task.type}</Text>
-        <Text>{task.description}</Text>
-        <Text>User: {task.createdBy}</Text>
-        <Text>Date: {task.createdAt?.toDate().toLocaleString()}</Text>
-      </TouchableOpacity>
-    ))}
-  </>
-);
-
+    <ScrollView>
+      {currentTasks.map((task) => (
+        <TouchableOpacity
+          onPress={() => openScreen(task)}
+          key={task.id}
+          style={styles.taskCard}
+        >
+          <Text>{task.type}</Text>
+          <Text>{task.description}</Text>
+          <Text>User: {task.createdBy}</Text>
+          <Text>Date: {task.createdAt?.toDate().toLocaleString()}</Text>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+  );
 }
+
 export default TaskPage;
 
 const styles = StyleSheet.create({
