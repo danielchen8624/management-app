@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { router } from "expo-router";
@@ -23,13 +23,11 @@ export default function RootLayout() {
     return unsub;
   }, []);
 
-  return <Stack >
-    <Stack.Screen 
-    name = "(tabs)"
-    options = {{headerShown: false}}
-    />
-    <Stack.Screen 
-    name = "movie/[id]"
-    options = {{headerShown: false}} />
-    </Stack>;
+  return (
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(components)" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />;
+    </Stack>
+  );
 }

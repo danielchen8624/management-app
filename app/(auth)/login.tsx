@@ -11,7 +11,6 @@ export default function LoginScreen() {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert("Success!", "User registered.");
-      router.replace("/home");
     } catch (error: any) {
       Alert.alert("Error", error.message);
     }
@@ -21,7 +20,6 @@ export default function LoginScreen() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       Alert.alert("Success!", "Logged in.");
-      router.replace("/home");
     } catch (error: any) {
       Alert.alert("Error", error.message);
     }

@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Stack } from "expo-router";
 
-export default function Home() {
-  
-
+export default function RootLayout() {
   return (
-    <View style={{ flex: 1 }}>
-      <Text>loading...</Text>
-    </View>
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(components)" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+    </Stack>
   );
 }
